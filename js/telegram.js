@@ -1,4 +1,8 @@
+import { renderPlants } from './ui.js';
+import { gameState } from './game.js';
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Telegram WebApp
   if (window.Telegram?.WebApp) {
     const tg = window.Telegram.WebApp;
     tg.expand();
@@ -8,11 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
     tg.setHeaderColor('#8bc34a');
   }
 
-  // Имитация роста раз в 10 сек (для демо)
+  // Авто-рост каждые 8 секунд
   setInterval(() => {
     gameState.plants.forEach(p => p.update());
     if (document.getElementById('garden-view').classList.contains('active')) {
-      import('./ui.js').then(ui => ui.renderPlants());
+      renderPlants();
     }
-  }, 10000);
+  }, 8000);
+
+  // Обновить UI при старте
+  import('./ui.js').then(ui => {
+    ui.renderPlants();
+    ui.renderShop();
+    ui.renderInventory();
+    ui.renderAchievements();
+  });
 });
