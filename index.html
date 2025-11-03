@@ -5,70 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>GrowBox Pro Premium 2025</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=ClashGrotesk:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="ar-background"></div>
-  <div class="header" id="dynamic-tip">🌱 Добро пожаловать в ваш гроубокс!</div>
+  <div class="background"></div>
+  
+  <!-- Динамический хедер с деньгами и уровнем -->
+  <div class="top-bar">
+    <div class="stats">
+      <span class="money">₽<span id="money">1500</span></span>
+      <span class="level">Ур. <span id="level">1</span></span>
+    </div>
+    <div class="tip" id="dynamic-tip">🌱 Добро пожаловать в ваш гроубокс!</div>
+  </div>
 
+  <!-- Основной контент -->
   <div class="content active" id="garden-view">
-    <div id="plants-container"></div>
-    <div id="empty-garden">Посадите первое растение! Перейдите в «Магазин».</div>
+    <div class="plants-grid" id="plants-container"></div>
+    <div class="empty-state" id="empty-garden">
+      <img src="assets/illustrations/empty-garden.png" alt="Пустой сад">
+      <p>Посадите первое растение в магазине!</p>
+    </div>
   </div>
 
   <div class="content" id="shop-view">
-    <h2>🌱 Семена (8 типов)</h2>
-    <div id="seeds-shop"></div>
-    <h2>🛠️ Оборудование</h2>
-    <div id="equipment-shop"></div>
-    <h2>💊 Расходники</h2>
-    <div id="consumables-shop"></div>
+    <div class="section">
+      <h2>🌱 Семена</h2>
+      <div class="grid" id="seeds-shop"></div>
+    </div>
+    <div class="section">
+      <h2>🛠️ Оборудование</h2>
+      <div class="grid" id="equipment-shop"></div>
+    </div>
   </div>
 
   <div class="content" id="real-shop-view">
-    <h2>🛒 Реальный магазин оборудования</h2>
-    <p>Доставка бесплатно от 5000 ₽</p>
-    <button id="open-real-shop" class="btn-primary">Перейти в магазин</button>
+    <div class="hero">
+      <h1>🛒 Магазин с доставкой </h1>
+      <p>Официальный магазин оборудования для выращивания</p>
+    </div>
+    <div class="real-products" id="real-products"></div>
+    <button id="open-real-shop" class="btn-primary btn-lg">Перейти в магазин</button>
   </div>
 
-  <div class="content" id="inventory-view">
-    <h2>📦 Инвентарь</h2>
-    <div id="inventory-list"></div>
+  <!-- Нижнее меню -->
+  <div class="bottom-nav">
+    <a href="#" class="nav-item active" data-view="garden">
+      <div class="icon">🌱</div>
+      <span>Сад</span>
+    </a>
+    <a href="#" class="nav-item" data-view="shop">
+      <div class="icon">🛒</div>
+      <span>Магазин</span>
+    </a>
+    <a href="#" class="nav-item" data-view="real-shop">
+      <div class="icon">🛍️</div>
+      <span>Оборудование</span>
+    </a>
   </div>
 
-  <div class="content" id="achievements-view">
-    <h2>🏆 Достижения</h2>
-    <div id="achievements-list"></div>
-  </div>
-
-  <div class="content" id="encyclopedia-view">
-    <h2>📚 Советы гровера</h2>
-    <ul>
-      <li>💧 Поливайте каждые 12 часов</li>
-      <li>🌿 Удобрения повышают качество урожая</li>
-      <li>⚠️ Низкое здоровье → болезни!</li>
-      <li>✅ На стадии 4/4 — собирайте урожай</li>
-    </ul>
-  </div>
-
+  <!-- Эффекты -->
   <div id="rain-container"></div>
   <div id="confetti-container"></div>
   <div class="toast" id="toast"></div>
 
-  <div class="bottom-nav">
-    <a href="#" class="nav-item active" data-view="garden">🌱 Сад</a>
-    <a href="#" class="nav-item" data-view="shop">🛒 Магазин</a>
-    <a href="#" class="nav-item" data-view="real-shop">🛍️ Оборудование</a>
-    <a href="#" class="nav-item" data-view="inventory">📦 Инвентарь</a>
-    <a href="#" class="nav-item" data-view="achievements">🏆 Достижения</a>
-    <a href="#" class="nav-item" data-view="encyclopedia">📚 Советы</a>
-  </div>
-
-  <script type="module" src="js/game.js"></script>
-  <script type="module" src="js/ui.js"></script>
-  <script type="module" src="js/plant.js"></script>
-  <script type="module" src="js/shop.js"></script>
-  <script type="module" src="js/save.js"></script>
+  <script type="module" src="js/core/game.js"></script>
+  <script type="module" src="js/systems/plant.js"></script>
+  <script type="module" src="js/ui/render.js"></script>
+  <script type="module" src="js/shop/realShop.js"></script>
   <script type="module" src="js/telegram.js"></script>
 </body>
 </html>
