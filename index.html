@@ -1,78 +1,1803 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>GrowBox Pro Premium 2025</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=ClashGrotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GrowBox Pro v5.1 (Без Firebase)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ——— ВСЕ СТИЛИ БЕЗ ИЗМЕНЕНИЙ ——— */
+        :root {
+            --color-primary: #2e7d32;
+            --color-primary-light: #4caf50;
+            --color-primary-dark: #1b5e20;
+            --color-bg-light: #f1f8e9;
+            --color-bg-white: #ffffff;
+            --color-bg-card: rgba(255, 255, 255, 0.9); 
+            --color-bg-nav: rgba(255, 255, 255, 0.7);
+            --color-text: #1b5e20;
+            --color-text-secondary: #558b2f;
+            --color-success: #4caf50;
+            --color-error: #f44336;
+            --color-warning: #ff9800;
+            --color-info: #2196f3;
+            --color-border: rgba(46, 125, 50, 0.2);
+            --color-shadow: rgba(46, 125, 50, 0.1); 
+            --color-gold: #ffd700;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--color-text);
+            overflow-x: hidden;
+            padding-top: 100px;  
+            padding-bottom: 80px;
+            min-height: 100vh;
+            position: relative;
+            background: linear-gradient(-45deg, #e8f5e9, #f1f8e9, #c8e6c9, #a5d6a7);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .glass-ui {
+            background: var(--color-bg-nav);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 var(--color-shadow);
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: var(--spacing-sm) var(--spacing-md);
+            z-index: 100;
+            height: 100px;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .header-title {
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        .header-title-logo {
+            font-size: 28px;
+        }
+        .header-stats {
+            display: flex;
+            gap: var(--spacing-sm);
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--color-bg-card);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 2px 4px var(--color-shadow);
+        }
+        .stat-item span:first-child {
+            font-size: 18px;
+        }
+        .equipment-bonus-icons {
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+        .equipment-bonus-icons span {
+            font-size: 12px;
+            padding: 4px;
+            background: rgba(255,215,0,0.3);
+            border-radius: 50%;
+            display: none;
+        }
+        .xp-bar-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding-bottom: var(--spacing-xs);
+        }
+        .level-badge {
+            font-size: 12px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+            color: white;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 2px 4px var(--color-shadow);
+        }
+        .xp-bar {
+            flex: 1;
+            height: 12px;
+            background: var(--color-border);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        .xp-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-gold), var(--color-warning));
+            width: 0%;
+            transition: width 0.5s var(--transition);
+        }
+        .xp-bar-text {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            text-shadow: 0 1px 1px rgba(255,255,255,0.4);
+        }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+            position: relative;
+            z-index: 2;
+        }
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .star {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--color-bg-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        .spinner {
+            border: 4px solid var(--color-border);
+            border-top: 4px solid var(--color-primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        .spinner-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-lg);
+            min-height: 200px;
+        }
+        .spinner-container .spinner {
+             width: 30px;
+             height: 30px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-text {
+            margin-top: var(--spacing-md);
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        .advice-box {
+            background: var(--color-bg-card);
+            backdrop-filter: blur(5px);
+            border-left: 4px solid var(--color-primary);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+            font-size: 14px;
+            line-height: 1.5;
+            box-shadow: 0 4px 12px var(--color-shadow);
+            transition: border-color var(--transition);
+        }
+        .garden-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .plant-card {
+            background: var(--color-bg-card);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            box-shadow: 0 8px 24px var(--color-shadow);
+            cursor: pointer;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 240px;
+            animation: fadeIn 0.5s var(--transition);
+        }
+        .plant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(46, 125, 50, 0.2);
+            border-color: var(--color-primary);
+        }
+        .plant-card.empty {
+            border: 2px dashed var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 240px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+        }
+        .plant-card.empty:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        .plant-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+        }
+        .plant-name {
+            font-weight: 700;
+            color: var(--color-primary);
+            font-size: 14px;
+        }
+        .plant-stage {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+        .plant-image-container {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: var(--spacing-sm) 0;
+        }
+        .plant-image {
+            max-width: 100%;
+            max-height: 100px;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+        .plant-card.harvestable {
+            animation: pulseHarvest 1.5s infinite;
+        }
+        .plant-card.sick {
+            animation: pulseDisease 2s infinite;
+        }
+        @keyframes pulseHarvest {
+            0% { box-shadow: 0 8px 24px var(--color-shadow); border-color: var(--color-border); }
+            50% { box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5); border-color: var(--color-gold); }
+            100% { box-shadow: 0 8px 24px var(--color-shadow); border-color: var(--color-border); }
+        }
+        @keyframes pulseDisease {
+            0% { border-color: var(--color-border); }
+            50% { border-color: var(--color-error); }
+            100% { border-color: var(--color-border); }
+        }
+        .disease-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--color-error);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            animation: shake 0.5s ease-in-out infinite;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+        .plant-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: var(--spacing-sm);
+        }
+        .stat-bar {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .stat-icon {
+            font-size: 14px;
+            width: 18px;
+            text-align: center;
+        }
+        .progress-bar {
+            flex: 1;
+            height: 10px;
+            background: var(--color-border);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            transition: width var(--transition);
+        }
+        #healthFill { background: var(--color-success); }
+        #waterFill { background: var(--color-info); }
+        #growthFill { background: var(--color-warning); }
+        .soil-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-sm);
+            padding-top: var(--spacing-sm);
+            border-top: 1px solid var(--color-border);
+        }
+        .soil-stat {
+            text-align: center;
+            font-size: 10px;
+            color: var(--color-text-secondary);
+        }
+        .soil-stat-label { 
+            font-weight: 700; 
+            color: var(--color-text); 
+        }
+        .plant-actions {
+            margin-top: var(--spacing-md);
+        }
+        .action-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            box-shadow: 0 2px 4px var(--color-shadow);
+        }
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+        }
+        .action-btn.harvest {
+            background: linear-gradient(135deg, var(--color-gold), var(--color-warning));
+            color: var(--color-primary-dark);
+        }
+        .action-btn.harvest:hover {
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        .section-title span {
+            font-size: 24px;
+        }
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+        }
+        .item-card {
+            background: var(--color-bg-card);
+            backdrop-filter: blur(5px);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            box-shadow: 0 8px 24px var(--color-shadow);
+            text-align: center;
+            transition: all var(--transition);
+            border: 1px solid var(--color-border);
+        }
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(46, 125, 50, 0.2);
+            border-color: var(--color-primary);
+        }
+        .item-icon {
+            font-size: 48px;
+            margin-bottom: var(--spacing-sm);
+            line-height: 1;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .item-name {
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-xs);
+            font-size: 14px;
+        }
+        .item-description {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-sm);
+            min-height: 22px;
+        }
+        .item-price {
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            font-size: 14px;
+            margin-bottom: var(--spacing-md);
+        }
+        .buy-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            box-shadow: 0 2px 4px var(--color-shadow);
+        }
+        .buy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+        }
+        .buy-btn:disabled {
+            background: #aaa;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .inventory-card {
+            position: relative;
+        }
+        .inventory-count {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--color-primary);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .inventory-name {
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+            font-size: 14px;
+        }
+        .product-card {
+            background: var(--color-bg-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 8px 24px var(--color-shadow);
+            margin-bottom: var(--spacing-md);
+            transition: all var(--transition);
+            border: 1px solid var(--color-border);
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(46, 125, 50, 0.2);
+        }
+        .product-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: var(--color-bg-light);
+        }
+        .product-content {
+            padding: var(--spacing-md);
+        }
+        .product-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        .product-description {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.5;
+        }
+        .product-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            margin-bottom: var(--spacing-md);
+        }
+        .product-link {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            transition: all var(--transition);
+        }
+        .product-link:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+        }
+        .reward-card {
+            background: linear-gradient(135deg, #fff9c4, #fffde7);
+            border: 2px solid var(--color-gold);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            box-shadow: 0 8px 24px rgba(255, 215, 0, 0.2);
+            margin-bottom: var(--spacing-md);
+        }
+        .reward-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+        .reward-description {
+            font-size: 12px;
+            color: #b08d57;
+            margin-bottom: var(--spacing-md);
+        }
+        .reward-cost {
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            font-size: 14px;
+            margin-bottom: var(--spacing-md);
+        }
+        .redeem-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, #ffd700, #ffc107);
+            color: var(--color-primary-dark);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .redeem-btn:disabled {
+            background: #ccc;
+            color: #777;
+            cursor: not-allowed;
+        }
+        .settings-group {
+            background: var(--color-bg-card);
+            backdrop-filter: blur(5px);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            box-shadow: 0 4px 12px var(--color-shadow);
+        }
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+        .settings-item:last-child { margin-bottom: 0; }
+        .settings-label {
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 28px;
+            background: var(--color-border);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background var(--transition);
+        }
+        .toggle-switch.active {
+            background: var(--color-primary);
+        }
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform var(--transition);
+        }
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(22px);
+        }
+        .user-id-box {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            background: var(--color-bg-light);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            word-break: break-all;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            padding: var(--spacing-sm) 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid var(--color-border);
+        }
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: var(--spacing-xs);
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            color: var(--color-text-secondary);
+        }
+        .nav-item:hover {
+            transform: translateY(-3px);
+        }
+        .nav-item.active {
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+        .nav-icon { font-size: 24px; }
+        .nav-label { font-size: 10px; font-weight: 600; }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: var(--spacing-md);
+            backdrop-filter: blur(5px);
+        }
+        .modal.show {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideInUp 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+        }
+        .modal-body { margin-bottom: var(--spacing-md); }
+        .modal-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .modal-btn.primary {
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+            color: white;
+        }
+        .modal-btn.secondary {
+            background: var(--color-bg-light);
+            color: var(--color-text);
+        }
+        .toast {
+            position: fixed;
+            top: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-primary-dark);
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 2000;
+            animation: slideDown 0.3s ease-out;
+            max-width: 90%;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .toast.success { background: var(--color-success); }
+        .toast.error { background: var(--color-error); }
+        .toast.info { background: var(--color-info); }
+        @keyframes slideDown {
+            from { transform: translateX(-50%) translateY(-50px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        .draggable {
+            cursor: grab;
+            user-select: none;
+        }
+        .dragging {
+            opacity: 0.5;
+            transform: scale(1.1) rotate(5deg);
+            cursor: grabbing;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 5000;
+        }
+        .droppable-hover {
+            outline: 3px dashed var(--color-gold);
+            outline-offset: 4px;
+            transform: scale(1.02);
+            border-color: var(--color-gold);
+        }
+        .hidden { display: none !important; }
+    </style>
 </head>
 <body>
-  <div class="background"></div>
-  
-  <!-- Динамический хедер с деньгами и уровнем -->
-  <div class="top-bar">
-    <div class="stats">
-      <span class="money">₽<span id="money">1500</span></span>
-      <span class="level">Ур. <span id="level">1</span></span>
+    <div class="stars" id="stars"></div>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text">Загрузка игры...</div>
     </div>
-    <div class="tip" id="dynamic-tip">🌱 Добро пожаловать в ваш гроубокс!</div>
-  </div>
-
-  <!-- Основной контент -->
-  <div class="content active" id="garden-view">
-    <div class="plants-grid" id="plants-container"></div>
-    <div class="empty-state" id="empty-garden">
-      <img src="assets/illustrations/empty-garden.png" alt="Пустой сад">
-      <p>Посадите первое растение в магазине!</p>
+    <div class="header glass-ui">
+        <div class="header-top">
+            <div class="header-title">
+                <span class="header-title-logo">🌱</span>
+                <span>GrowBox Pro</span>
+            </div>
+            <div class="header-stats">
+                <div class="equipment-bonus-icons">
+                    <span id="bonus-led">💡</span>
+                    <span id="bonus-ventilation">🌀</span>
+                    <span id="bonus-autowater">💧</span>
+                </div>
+                <div class="stat-item">
+                    <span>💰</span>
+                    <span id="moneyDisplay">0</span>
+                </div>
+                <div class="stat-item">
+                    <span>💎</span>
+                    <span id="shopPointsDisplay">0</span>
+                </div>
+            </div>
+        </div>
+        <div class="xp-bar-container">
+            <div class="level-badge">LVL <span id="levelDisplay">1</span></div>
+            <div class="xp-bar">
+                <div class="xp-bar-fill" id="xpBarFill"></div>
+                <span class="xp-bar-text" id="xpBarText">0 / 100</span>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="content" id="shop-view">
-    <div class="section">
-      <h2>🌱 Семена</h2>
-      <div class="grid" id="seeds-shop"></div>
+    <div class="container">
+        <div id="gardenView" class="view">
+            <div class="advice-box" id="adviceBox">
+                💡 Добро пожаловать! Посадите ваше первое растение.
+            </div>
+            <div class="garden-grid" id="gardenGrid"></div>
+        </div>
+        <div id="shopView" class="view hidden">
+            <h2 class="section-title"><span>🏪</span> Магазин</h2>
+            <h3 style="margin: var(--spacing-md) 0; color: var(--color-primary);">🌱 Семена</h3>
+            <div class="item-grid" id="seedsShop"></div>
+            <h3 style="margin: var(--spacing-lg) 0 var(--spacing-md); color: var(--color-primary);">🧪 Расходники</h3>
+            <div class="item-grid" id="consumablesShop"></div>
+            <h3 style="margin: var(--spacing-lg) 0 var(--spacing-md); color: var(--color-primary);">⚙️ Оборудование</h3>
+            <div class="item-grid" id="equipmentShop"></div>
+        </div>
+        <div id="inventoryView" class="view hidden">
+            <h2 class="section-title"><span>🎒</span> Инвентарь</h2>
+            <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">
+                Перетащите предмет из инвентаря на растение, чтобы использовать его.
+            </p>
+            <div class="item-grid" id="inventoryGrid"></div>
+        </div>
+        <div id="realShopView" class="view hidden">
+            <h2 class="section-title"><span>🏬</span> Реальный магазин</h2>
+            <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">
+                Профессиональное оборудование для ваших реальных проектов.
+            </p>
+            <div id="realProductsGrid">
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/e8f5e9/1b5e20?text=💡" class="product-image">
+                    <div class="product-content">
+                        <h3 class="product-name">LED Фитолампа Mars Hydro TS 1000</h3>
+                        <p class="product-description">Профессиональная LED лампа полного спектра.</p>
+                        <div class="product-price">15 990 ₽</div>
+                        <a href="https://example.com" target="_blank" class="product-link">🛒 Смотреть в магазине</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/e8f5e9/1b5e20?text=⛺" class="product-image">
+                    <div class="product-content">
+                        <h3 class="product-name">Гроутент Secret Jardin 120x120</h3>
+                        <p class="product-description">Премиум тент из Бельгии с 95% отражением.</p>
+                        <div class="product-price">18 990 ₽</div>
+                        <a href="https://example.com" target="_blank" class="product-link">🛒 Смотреть в магазине</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="rewardsView" class="view hidden">
+            <h2 class="section-title"><span>🎁</span> Награды за игру</h2>
+            <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">
+                Обменивайте 💎 Очки Магазина на промокоды!
+            </p>
+            <div id="rewardsList">
+                <div class="reward-card">
+                    <h3 class="reward-title"><span>🎁</span> Скидка 5%</h3>
+                    <p class="reward-description">Промокод на 5% на любой заказ</p>
+                    <div class="reward-cost">Стоимость: 5000 💎</div>
+                    <button class="redeem-btn" disabled>Недостаточно 💎</button>
+                </div>
+            </div>
+        </div>
+        <div id="settingsView" class="view hidden">
+            <h2 class="section-title"><span>⚙️</span> Настройки</h2>
+            <div class="settings-group">
+                <div class="settings-item">
+                    <span class="settings-label">Анимации</span>
+                    <div class="toggle-switch" id="toggleAnimations">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <span class="settings-label">Звуки</span>
+                    <div class="toggle-switch" id="toggleSounds">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <span class="settings-label">Вибрация</span>
+                    <div class="toggle-switch" id="toggleVibration">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-group">
+                <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: var(--spacing-sm);">
+                    Ваш уникальный ID для поддержки:
+                </p>
+                <div class="user-id-box" id="userIdDisplay">local-id-12345</div>
+            </div>
+            <div class="settings-group">
+                <button id="resetGameBtn" class="action-btn" style="background: var(--color-error);">Начать игру заново</button>
+            </div>
+        </div>
     </div>
-    <div class="section">
-      <h2>🛠️ Оборудование</h2>
-      <div class="grid" id="equipment-shop"></div>
+    <div class="bottom-nav glass-ui">
+        <button class="nav-item active" data-view="garden">
+            <div class="nav-icon">🌱</div>
+            <div class="nav-label">Сад</div>
+        </button>
+        <button class="nav-item" data-view="shop">
+            <div class="nav-icon">🏪</div>
+            <div class="nav-label">Магазин</div>
+        </button>
+        <button class="nav-item" data-view="inventory">
+            <div class="nav-icon">🎒</div>
+            <div class="nav-label">Инвентарь</div>
+        </button>
+        <button class="nav-item" data-view="realShop">
+            <div class="nav-icon">🏬</div>
+            <div class="nav-label">Реал. Маг.</div>
+        </button>
+        <button class="nav-item" data-view="rewards">
+            <div class="nav-icon">🎁</div>
+            <div class="nav-label">Награды</div>
+        </button>
+        <button class="nav-item" data-view="settings">
+            <div class="nav-icon">⚙️</div>
+            <div class="nav-label">Настройки</div>
+        </button>
     </div>
-  </div>
-
-  <div class="content" id="real-shop-view">
-    <div class="hero">
-      <h1>🛒 Магазин с доставкой </h1>
-      <p>Официальный магазин оборудования для выращивания</p>
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Заголовок</h3>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                Содержимое
+            </div>
+            <div class="modal-actions" id="modalActions"></div>
+        </div>
     </div>
-    <div class="real-products" id="real-products"></div>
-    <button id="open-real-shop" class="btn-primary btn-lg">Перейти в магазин</button>
-  </div>
+    <!-- ОСНОВНОЙ JS -->
+    <script>
+        // === ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ===
+        let gameState = null;
+        let plantElements = {};
+        let inventoryElements = {};
+        let audioContext;
 
-  <!-- Нижнее меню -->
-  <div class="bottom-nav">
-    <a href="#" class="nav-item active" data-view="garden">
-      <div class="icon">🌱</div>
-      <span>Сад</span>
-    </a>
-    <a href="#" class="nav-item" data-view="shop">
-      <div class="icon">🛒</div>
-      <span>Магазин</span>
-    </a>
-    <a href="#" class="nav-item" data-view="real-shop">
-      <div class="icon">🛍️</div>
-      <span>Оборудование</span>
-    </a>
-  </div>
+        // === КОНСТАНТЫ (без изменений) ===
+        const IMAGE_PATH = "https://placehold.co/100x100/f1f8e9/1b5e20?font=inter&text=";
+        const STAGE_IMAGES = {
+            seed: `${IMAGE_PATH}🌱`,
+            sprout: `${IMAGE_PATH}🌿`,
+            vegetative: `${IMAGE_PATH}🌳`,
+            flowering: `${IMAGE_PATH}🌸`,
+            harvest: `${IMAGE_PATH}🌾`
+        };
+        const SEED_TYPES = {
+            basic: { name: 'Базовая Сатива', emoji: '🌱', image: STAGE_IMAGES.seed, price: 100, yield: 200, level: 1, growthTime: 30000, xp: 10 },
+            auto: { name: 'Автоцвет', emoji: '🌸', image: STAGE_IMAGES.seed, price: 250, yield: 450, level: 3, growthTime: 45000, xp: 20 },
+            indica: { name: 'Мощная Индика', emoji: '🌳', image: STAGE_IMAGES.seed, price: 500, yield: 1000, level: 5, growthTime: 60000, xp: 50 },
+            legend: { name: 'Легенда', emoji: '✨', image: STAGE_IMAGES.seed, price: 1000, yield: 2500, level: 8, growthTime: 90000, xp: 100 }
+        };
+        const CONSUMABLES = {
+            water: { name: 'Лейка', emoji: '💧', price: 0, effect: 'water', oneTime: false },
+            nitrogen: { name: 'Азот (N)', emoji: '🧪', price: 50, effect: 'N', oneTime: true, desc: 'Для роста (Вега)' },
+            phosphorus: { name: 'Фосфор (P)', emoji: '🌿', price: 50, effect: 'P', oneTime: true, desc: 'Для цветения (Цвет)' },
+            potassium: { name: 'Калий (K)', emoji: '🌾', price: 50, effect: 'K', oneTime: true, desc: 'Для здоровья (Общее)' },
+            fungicide: { name: 'Фунгицид', emoji: '🍄', price: 80, effect: 'fungus', oneTime: true, desc: 'Лечит грибок' },
+            pests: { name: 'От вредителей', emoji: '🦗', price: 80, effect: 'pests', oneTime: true, desc: 'Убивает вредителей' },
+        };
+        const EQUIPMENT = {
+            led: { name: 'LED-лампы', emoji: '💡', price: 500, bonus: 'Рост +10%', realProductLink: 'https://example.com' },
+            ventilation: { name: 'Вентиляция', emoji: '🌀', price: 400, bonus: 'Болезни -10%', realProductLink: 'https://example.com' },
+            autowater: { name: 'Автополив', emoji: '💧', price: 1000, bonus: 'Вода x0.5', realProductLink: 'https://example.com' },
+        };
+        const DISEASES = ['fungus', 'pests'];
+        const XP_PER_LEVEL = 100;
+        const LEVEL_UNLOCKS = {
+            '3': { type: 'slot', count: 3 },
+            '5': { type: 'slot', count: 4 },
+            '7': { type: 'slot', count: 5 },
+            '10': { type: 'slot', count: 6 },
+        };
 
-  <!-- Эффекты -->
-  <div id="rain-container"></div>
-  <div id="confetti-container"></div>
-  <div class="toast" id="toast"></div>
+        // === ПОЛНОСТЬЮ ЗАМЕНЁННАЯ ИНИЦИАЛИЗАЦИЯ БЕЗ FIREBASE ===
+        function createInitialGameState() {
+            return {
+                money: 500,
+                shopPoints: 0,
+                level: 1,
+                xp: 0,
+                plants: [null, null],
+                inventory: {
+                    basic: 2,
+                    water: 1,
+                    nitrogen: 3,
+                    phosphorus: 3,
+                    potassium: 3,
+                },
+                equipment: [],
+                settings: {
+                    animations: true,
+                    sounds: true,
+                    vibration: true
+                },
+                stats: {
+                    plantsPlanted: 0,
+                    plantsHarvested: 0
+                },
+                lastSavedAt: Date.now(),
+                lastLogin: Date.now(),
+            };
+        }
 
-  <script type="module" src="js/core/game.js"></script>
-  <script type="module" src="js/systems/plant.js"></script>
-  <script type="module" src="js/ui/render.js"></script>
-  <script type="module" src="js/shop/realShop.js"></script>
-  <script type="module" src="js/telegram.js"></script>
+        function loadGame() {
+            const saved = localStorage.getItem('growbox_save_v51_local');
+            if (saved) {
+                try {
+                    return JSON.parse(saved);
+                } catch (e) {
+                    console.error("Ошибка загрузки сохранения:", e);
+                }
+            }
+            return createInitialGameState();
+        }
+
+        function saveGame() {
+            localStorage.setItem('growbox_save_v51_local', JSON.stringify(gameState));
+        }
+
+        // === ВСЕ ФУНКЦИИ ИГРЫ БЕЗ ИЗМЕНЕНИЙ ===
+        function getAudioContext() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioContext;
+        }
+        function playSound(frequency, duration, volume, type = 'sine') {
+            if (!gameState.settings.sounds) return;
+            try {
+                const ctx = getAudioContext();
+                const oscillator = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(ctx.destination);
+                oscillator.frequency.value = frequency;
+                oscillator.type = type;
+                gainNode.gain.setValueAtTime(volume, ctx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+                oscillator.start(ctx.currentTime);
+                oscillator.stop(ctx.currentTime + duration);
+            } catch (e) {
+                console.warn('Sound play failed', e);
+            }
+        }
+        function vibrate(pattern) {
+            if (gameState.settings.vibration && navigator.vibrate) {
+                navigator.vibrate(pattern);
+            }
+        }
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'slideDown 0.3s ease-out reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+        function showModal(title, body, actions) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = body;
+            document.getElementById('modalActions').innerHTML = actions.map(action => 
+                `<button class="modal-btn ${action.type}" onclick="${action.onclick}">${action.label}</button>`
+            ).join('');
+            document.getElementById('modal').classList.add('show');
+        }
+        function closeModal() {
+            document.getElementById('modal').classList.remove('show');
+        }
+        function getXpNeededForLevel(level) {
+            return level * XP_PER_LEVEL;
+        }
+        function addXP(amount) {
+            if (amount <= 0) return;
+            gameState.xp += amount;
+            let xpNeeded = getXpNeededForLevel(gameState.level);
+            while (gameState.xp >= xpNeeded) {
+                gameState.level++;
+                gameState.xp -= xpNeeded;
+                xpNeeded = getXpNeededForLevel(gameState.level);
+                showToast(`🎉 УРОВЕНЬ ПОВЫШЕН! Новый уровень: ${gameState.level}`, 'success');
+                playSound(600, 0.2, 0.3);
+                vibrate([100, 50, 100]);
+                checkLevelUnlocks();
+            }
+            updateHeaderUI();
+        }
+        function checkLevelUnlocks() {
+            const unlock = LEVEL_UNLOCKS[gameState.level];
+            if (!unlock) return;
+            if (unlock.type === 'slot' && gameState.plants.length < unlock.count) {
+                gameState.plants.push(null);
+                renderGarden();
+                showModal('🏆 Слот открыт!',
+                    `Поздравляем! Вы достигли ${gameState.level} уровня и открыли новый слот для растения! Теперь у вас ${gameState.plants.length} слота.`,
+                    [{ label: 'Отлично!', type: 'primary', onclick: 'closeModal()' }]
+                );
+            }
+        }
+        window.plantSeed = (slotIndex, seedType) => {
+            if (!gameState.inventory[seedType] || gameState.inventory[seedType] <= 0) {
+                showToast('Недостаточно семян!', 'error');
+                return;
+            }
+            gameState.inventory[seedType]--;
+            const seedData = SEED_TYPES[seedType];
+            gameState.plants[slotIndex] = {
+                type: seedType,
+                stage: 'seed',
+                health: 100,
+                growth: 0,
+                plantedAt: Date.now(),
+                disease: null,
+                soil: { water: 100, N: 100, P: 100, K: 100 }
+            };
+            gameState.stats.plantsPlanted++;
+            addXP(10);
+            playSound(400, 0.1, 0.2);
+            vibrate(50);
+            closeModal();
+            renderPlantCard(slotIndex);
+            renderInventory();
+            updateAdviceBox();
+        }
+        const GameLogic = {
+            getEquipmentBonuses() {
+                const bonuses = { growth: 1.0, water: 1.0, disease: 1.0 };
+                gameState.equipment.forEach(key => {
+                    if (key === 'led') bonuses.growth *= 0.9;
+                    if (key === 'autowater') bonuses.water *= 0.5;
+                    if (key === 'ventilation') bonuses.disease *= 0.1;
+                });
+                return bonuses;
+            },
+            calculateOfflineProgress(lastSavedAt) {
+                const offlineTimeSec = Math.floor((Date.now() - lastSavedAt) / 1000);
+                if (offlineTimeSec < 60) return;
+                const ticks = Math.min(offlineTimeSec, 3600); // Макс 1 час
+                let plantsDied = 0, plantsGrown = 0;
+                const bonuses = this.getEquipmentBonuses();
+                gameState.plants.forEach(plant => {
+                    if (!plant || plant.health <= 0) return;
+                    let ticksLeft = ticks;
+                    while (ticksLeft > 0 && plant.health > 0) {
+                        const seedData = SEED_TYPES[plant.type];
+                        plant.soil.water = Math.max(0, plant.soil.water - 0.1 * bonuses.water);
+                        if (plant.soil.water <= 0) plant.health = Math.max(0, plant.health - 0.01);
+                        if (plant.soil.water > 0) {
+                            let growthAmount = 0, N_cost = 0, P_cost = 0, K_cost = 0;
+                            const growthPerTick = (1 / (seedData.growthTime / 1000)) * 100 * (1 / bonuses.growth);
+                            if (plant.stage === 'vegetative' && plant.soil.N > 0) {
+                                growthAmount = growthPerTick; N_cost = 0.05; K_cost = 0.01;
+                            } else if (plant.stage === 'flowering' && plant.soil.P > 0 && plant.soil.K > 0) {
+                                growthAmount = growthPerTick; P_cost = 0.05; K_cost = 0.05;
+                            } else if (plant.stage !== 'harvest') {
+                                growthAmount = growthPerTick;
+                            }
+                            if (growthAmount > 0) {
+                                plant.growth = Math.min(100, plant.growth + growthAmount);
+                                plant.soil.N = Math.max(0, plant.soil.N - N_cost);
+                                plant.soil.P = Math.max(0, plant.soil.P - P_cost);
+                                plant.soil.K = Math.max(0, plant.soil.K - K_cost);
+                            } else if (plant.health > 0 && plant.stage !== 'harvest') {
+                                plant.health = Math.max(0, plant.health - 0.01);
+                            }
+                            if (plant.growth >= 100 && plant.stage !== 'harvest') {
+                                plant.stage = 'harvest'; plantsGrown++;
+                            } else if (plant.growth >= 70) plant.stage = 'flowering';
+                            else if (plant.growth >= 30) plant.stage = 'vegetative';
+                            else if (plant.growth > 0.1) plant.stage = 'sprout';
+                        }
+                        if (!plant.disease && Math.random() < 0.0001 * bonuses.disease) {
+                            plant.disease = DISEASES[Math.floor(Math.random() * DISEASES.length)];
+                        }
+                        if (plant.disease) plant.health = Math.max(0, plant.health - 0.01);
+                        if (plant.health <= 0) plantsDied++;
+                        ticksLeft--;
+                    }
+                });
+                showToast(`Пока вас не было: ~${Math.floor(offlineTimeSec / 60)} мин. Готово: ${plantsGrown}. Погибло: ${plantsDied}.`, 'info');
+            },
+            applyItem(slotIndex, itemId) {
+                const plant = gameState.plants[slotIndex];
+                const item = CONSUMABLES[itemId];
+                if (!plant || plant.health <= 0 || !item) return;
+                let applied = false;
+                switch (item.effect) {
+                    case 'water': plant.soil.water = 100; applied = true; addXP(1); break;
+                    case 'N': plant.soil.N = 100; applied = true; addXP(5); break;
+                    case 'P': plant.soil.P = 100; applied = true; addXP(5); break;
+                    case 'K': plant.soil.K = 100; applied = true; addXP(5); break;
+                    case 'fungus': if (plant.disease === 'fungus') { plant.disease = null; applied = true; addXP(20); } break;
+                    case 'pests': if (plant.disease === 'pests') { plant.disease = null; applied = true; addXP(20); } break;
+                }
+                if (applied) {
+                    if (item.oneTime) gameState.inventory[itemId]--;
+                    updatePlantCardUI(slotIndex, plant);
+                    renderInventory();
+                    updateAdviceBox();
+                    playSound(300, 0.1, 0.2);
+                    vibrate(50);
+                    saveGame();
+                } else {
+                    showToast('Нельзя применить сейчас', 'info');
+                }
+            }
+        };
+        function updateHeaderUI() {
+            document.getElementById('moneyDisplay').textContent = gameState.money;
+            document.getElementById('shopPointsDisplay').textContent = gameState.shopPoints;
+            document.getElementById('levelDisplay').textContent = gameState.level;
+            const xpNeeded = getXpNeededForLevel(gameState.level);
+            const xpPercent = Math.min(100, (gameState.xp / xpNeeded) * 100);
+            document.getElementById('xpBarFill').style.width = `${xpPercent}%`;
+            document.getElementById('xpBarText').textContent = `${gameState.xp} / ${xpNeeded} XP`;
+            document.getElementById('bonus-led').style.display = gameState.equipment.includes('led') ? 'block' : 'none';
+            document.getElementById('bonus-ventilation').style.display = gameState.equipment.includes('ventilation') ? 'block' : 'none';
+            document.getElementById('bonus-autowater').style.display = gameState.equipment.includes('autowater') ? 'block' : 'none';
+        }
+        function renderGarden() {
+            const grid = document.getElementById('gardenGrid');
+            grid.innerHTML = '';
+            plantElements = {};
+            gameState.plants.forEach((plant, index) => {
+                const slot = document.createElement('div');
+                grid.appendChild(slot);
+                renderPlantCard(index, slot);
+            });
+        }
+        function renderPlantCard(slotIndex, slotElement) {
+            const plant = gameState.plants[slotIndex];
+            if (!slotElement) {
+                slotElement = document.getElementById(`plant-slot-${slotIndex}`);
+                if (!slotElement) {
+                    slotElement = document.createElement('div');
+                    document.getElementById('gardenGrid').appendChild(slotElement);
+                }
+            }
+            slotElement.id = `plant-slot-${slotIndex}`;
+            if (plant) {
+                const seedData = SEED_TYPES[plant.type];
+                slotElement.className = 'plant-card glass-ui';
+                slotElement.innerHTML = `
+                    <div class="plant-header">
+                        <span class="plant-name">${seedData.name}</span>
+                        <span class="plant-stage" id="stage-${slotIndex}">${getStageText(plant.stage)}</span>
+                    </div>
+                    <div class="plant-image-container">
+                        <img src="${STAGE_IMAGES[plant.stage]}" class="plant-image" id="image-${slotIndex}" alt="${plant.stage}">
+                    </div>
+                    <div class="plant-stats">
+                        <div class="stat-bar">
+                            <span class="stat-icon">❤️</span>
+                            <div class="progress-bar"><div class="progress-fill" id="health-${slotIndex}" style="width: ${plant.health}%; background: var(--color-success);"></div></div>
+                        </div>
+                        <div class="stat-bar">
+                            <span class="stat-icon">📈</span>
+                            <div class="progress-bar"><div class="progress-fill" id="growth-${slotIndex}" style="width: ${plant.growth}%; background: var(--color-warning);"></div></div>
+                        </div>
+                        <div class="stat-bar">
+                            <span class="stat-icon">💧</span>
+                            <div class="progress-bar"><div class="progress-fill" id="water-${slotIndex}" style="width: ${plant.soil.water}%; background: var(--color-info);"></div></div>
+                        </div>
+                    </div>
+                    <div class="soil-stats">
+                        <div class="soil-stat"><span class="soil-stat-label">N:</span> <span id="N-${slotIndex}">${Math.round(plant.soil.N)}</span>%</div>
+                        <div class="soil-stat"><span class="soil-stat-label">P:</span> <span id="P-${slotIndex}">${Math.round(plant.soil.P)}</span>%</div>
+                        <div class="soil-stat"><span class="soil-stat-label">K:</span> <span id="K-${slotIndex}">${Math.round(plant.soil.K)}</span>%</div>
+                    </div>
+                    <div class="plant-actions" id="actions-${slotIndex}"></div>
+                    ${plant.disease ? `<div class="disease-badge">${plant.disease}</div>` : ''}
+                `;
+                updatePlantAction(slotIndex, plant);
+                if (plant.health > 0) {
+                    slotElement.classList.add('droppable');
+                    slotElement.dataset.slotIndex = slotIndex;
+                }
+                slotElement.classList.toggle('harvestable', plant.stage === 'harvest');
+                slotElement.classList.toggle('sick', !!plant.disease);
+            } else {
+                slotElement.className = 'plant-card empty';
+                slotElement.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 8px;">➕</div>
+                        <div style="font-size: 14px; color: var(--color-primary);">Свободный слот</div>
+                    </div>
+                `;
+                slotElement.onclick = () => openPlantModal(slotIndex);
+                slotElement.classList.remove('droppable', 'harvestable', 'sick');
+            }
+            plantElements[slotIndex] = {
+                slot: slotElement,
+                health: document.getElementById(`health-${slotIndex}`),
+                water: document.getElementById(`water-${slotIndex}`),
+                growth: document.getElementById(`growth-${slotIndex}`),
+                stage: document.getElementById(`stage-${slotIndex}`),
+                image: document.getElementById(`image-${slotIndex}`),
+                N: document.getElementById(`N-${slotIndex}`),
+                P: document.getElementById(`P-${slotIndex}`),
+                K: document.getElementById(`K-${slotIndex}`),
+                actions: document.getElementById(`actions-${slotIndex}`),
+            };
+        }
+        function updatePlantCardUI(slotIndex, plant) {
+            const els = plantElements[slotIndex];
+            if (!els || !plant) return;
+            els.health.style.width = plant.health + '%';
+            els.health.style.background = plant.health < 30 ? 'var(--color-error)' : 'var(--color-success)';
+            els.water.style.width = plant.soil.water + '%';
+            els.growth.style.width = plant.growth + '%';
+            els.stage.textContent = getStageText(plant.stage);
+            els.image.src = STAGE_IMAGES[plant.stage]; 
+            els.N.textContent = Math.round(plant.soil.N) + '%';
+            els.P.textContent = Math.round(plant.soil.P) + '%';
+            els.K.textContent = Math.round(plant.soil.K) + '%';
+            updatePlantAction(slotIndex, plant);
+            els.slot.classList.toggle('harvestable', plant.stage === 'harvest');
+            els.slot.classList.toggle('sick', !!plant.disease);
+        }
+        function updatePlantAction(slotIndex, plant) {
+            const els = plantElements[slotIndex];
+            if (!els || !els.actions) return;
+            els.actions.innerHTML = '';
+            if (plant.stage === 'harvest') {
+                els.actions.innerHTML = `<button class="action-btn harvest" onclick="harvestPlant(${slotIndex})">🌾 Собрать урожай</button>`;
+            } else if (plant.health <= 0) {
+                els.actions.innerHTML = `<button class="action-btn" onclick="removePlant(${slotIndex})" style="background: var(--color-error);">🗑️ Убрать</button>`;
+            }
+        }
+        function renderInventory() {
+            const grid = document.getElementById('inventoryGrid');
+            grid.innerHTML = '';
+            inventoryElements = {};
+            for (const key in gameState.inventory) {
+                const count = gameState.inventory[key];
+                if (count <= 0) continue;
+                const item = CONSUMABLES[key] || SEED_TYPES[key];
+                if (!item) continue;
+                const card = document.createElement('div');
+                card.className = 'item-card inventory-card glass-ui';
+                card.innerHTML = `
+                    <div class="inventory-count" id="count-${key}">${count}x</div>
+                    <div class="item-icon">${item.emoji}</div>
+                    <div class="inventory-name">${item.name}</div>
+                `;
+                if (CONSUMABLES[key]) {
+                    card.classList.add('draggable');
+                    card.dataset.itemId = key;
+                } else {
+                    card.style.cursor = 'not-allowed';
+                }
+                grid.appendChild(card);
+                inventoryElements[key] = { card: card, count: document.getElementById(`count-${key}`) };
+            }
+        }
+        function renderShops() {
+            const seedsGrid = document.getElementById('seedsShop');
+            seedsGrid.innerHTML = Object.entries(SEED_TYPES).map(([key, item]) => {
+                const locked = item.level > gameState.level;
+                return `
+                <div class="item-card glass-ui">
+                    <div class="item-icon"><img src="${item.image}" alt="${item.name}" style="width: 60px; height: 60px; border-radius: 8px;"></div>
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-description">Урожай: ${item.yield} / XP: ${item.xp}</div>
+                    <div class="item-price">${locked ? `LVL ${item.level}` : `${item.price} 💰`}</div>
+                    <button class="buy-btn" onclick="buyItem('${key}', 'seed')" ${locked ? 'disabled' : ''}>
+                        ${locked ? '🔒' : 'Купить'}
+                    </button>
+                </div>`;
+            }).join('');
+            const consumablesGrid = document.getElementById('consumablesShop');
+            consumablesGrid.innerHTML = Object.entries(CONSUMABLES).filter(([key]) => key !== 'water').map(([key, item]) => `
+                <div class="item-card glass-ui">
+                    <div class="item-icon">${item.emoji}</div>
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-description">${item.desc}</div>
+                    <div class="item-price">${item.price} 💰</div>
+                    <button class="buy-btn" onclick="buyItem('${key}', 'consumable')">Купить</button>
+                </div>`).join('');
+            const equipmentGrid = document.getElementById('equipmentShop');
+            equipmentGrid.innerHTML = Object.entries(EQUIPMENT).map(([key, item]) => {
+                const owned = gameState.equipment.includes(key);
+                return `
+                <div class="item-card glass-ui">
+                    <div class="item-icon">${item.emoji}</div>
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-description">${item.bonus}</div>
+                    <div class="item-price">${item.price} 💰</div>
+                    <button class="buy-btn" onclick="buyItem('${key}', 'equipment')" ${owned ? 'disabled' : ''}>
+                        ${owned ? '✅ Куплено' : 'Купить'}
+                    </button>
+                </div>`;
+            }).join('');
+        }
+        function renderRewards() {
+            const list = document.getElementById('rewardsList');
+            list.innerHTML = `
+                <div class="reward-card">
+                    <h3 class="reward-title"><span>🎁</span> Скидка 5%</h3>
+                    <p class="reward-description">Промокод на 5% на любой заказ</p>
+                    <div class="reward-cost">Стоимость: 5000 💎</div>
+                    <button class="redeem-btn" ${gameState.shopPoints >= 5000 ? '' : 'disabled'}>
+                        ${gameState.shopPoints >= 5000 ? 'Получить' : 'Недостаточно 💎'}
+                    </button>
+                </div>
+            `;
+        }
+        function renderSettings() {
+            const animToggle = document.getElementById('toggleAnimations');
+            const soundsToggle = document.getElementById('toggleSounds');
+            const vibroToggle = document.getElementById('toggleVibration');
+            if (gameState.settings.animations) animToggle.classList.add('active');
+            if (gameState.settings.sounds) soundsToggle.classList.add('active');
+            if (gameState.settings.vibration) vibroToggle.classList.add('active');
+            animToggle.onclick = () => {
+                gameState.settings.animations = !gameState.settings.animations;
+                animToggle.classList.toggle('active');
+                updateTime();
+            };
+            soundsToggle.onclick = () => {
+                gameState.settings.sounds = !gameState.settings.sounds;
+                soundsToggle.classList.toggle('active');
+            };
+            vibroToggle.onclick = () => {
+                gameState.settings.vibration = !gameState.settings.vibration;
+                vibroToggle.classList.toggle('active');
+            };
+            document.getElementById('resetGameBtn').onclick = () => {
+                showModal('Начать заново?', 
+                    'Весь ваш прогресс будет необратимо удален. Вы уверены?',
+                    [
+                        { label: 'Отмена', type: 'secondary', onclick: 'closeModal()' },
+                        { label: 'Да, удалить', type: 'primary', onclick: 'resetGame()' }
+                    ]
+                );
+            };
+        }
+        function updateAdviceBox() {
+            const adviceBox = document.getElementById('adviceBox');
+            let advices = [];
+            gameState.plants.forEach((plant, i) => {
+                if (!plant || plant.health <= 0) return;
+                if (plant.disease) advices.push(`Растение #${i+1} болеет (${plant.disease})!`);
+                if (plant.soil.water < 20) advices.push(`Растение #${i+1} хочет пить!`);
+                if (plant.stage === 'vegetative' && plant.soil.N < 10) advices.push(`Растению #${i+1} не хватает Азота (N)!`);
+                if (plant.stage === 'flowering' && (plant.soil.P < 10 || plant.soil.K < 10)) advices.push(`Растению #${i+1} не хватает P или K!`);
+                if (plant.stage === 'harvest') advices.push(`Растение #${i+1} готово к сбору!`);
+            });
+            if (advices.length > 0) {
+                adviceBox.textContent = `💡 ${advices[0]}`;
+                adviceBox.style.borderColor = 'var(--color-warning)';
+            } else {
+                adviceBox.textContent = '✅ Все растения в порядке. Отличная работа!';
+                adviceBox.style.borderColor = 'var(--color-primary)';
+            }
+        }
+        window.buyItem = (key, type) => {
+            let item, price, isOwned = false;
+            if (type === 'seed') {
+                item = SEED_TYPES[key];
+                price = item.price;
+                if (item.level > gameState.level) {
+                    showToast(`Требуется ${item.level} уровень!`, 'error'); return;
+                }
+            } else if (type === 'consumable') {
+                item = CONSUMABLES[key];
+                price = item.price;
+            } else if (type === 'equipment') {
+                item = EQUIPMENT[key];
+                price = item.price;
+                isOwned = gameState.equipment.includes(key);
+                if (isOwned) { showToast('Уже куплено!', 'info'); return; }
+            }
+            if (gameState.money < price) {
+                showToast('Недостаточно 💰!', 'error'); return;
+            }
+            gameState.money -= price;
+            if (type === 'equipment') {
+                gameState.equipment.push(key);
+                showModal('⚙️ Оборудование установлено!',
+                    `Вы купили "${item.name}"! ${item.bonus}.`,
+                    [
+                        { label: 'Закрыть', type: 'secondary', onclick: 'closeModal()' },
+                        { label: '🏬 В магазин!', type: 'primary', onclick: `window.open('${item.realProductLink}', '_blank'); closeModal();` }
+                    ]
+                );
+            } else {
+                gameState.inventory[key] = (gameState.inventory[key] || 0) + 1;
+            }
+            addXP(Math.floor(price / 10));
+            playSound(500, 0.1, 0.2);
+            vibrate(50);
+            updateHeaderUI();
+            renderInventory();
+            renderShops();
+        }
+        window.harvestPlant = (slotIndex) => {
+            const plant = gameState.plants[slotIndex];
+            if (!plant || plant.stage !== 'harvest') return;
+            const seedData = SEED_TYPES[plant.type];
+            const plantYield = seedData.yield;
+            const shopPoints = Math.floor(plantYield / 20);
+            gameState.money += plantYield;
+            gameState.shopPoints += shopPoints;
+            gameState.stats.plantsHarvested++;
+            addXP(seedData.xp);
+            showToast(`🌾 Собрано! +${plantYield} 💰 и +${shopPoints} 💎`, 'success');
+            playSound(700, 0.2, 0.3);
+            vibrate([50, 100, 50]);
+            showConfetti();
+            gameState.plants[slotIndex] = null;
+            renderPlantCard(slotIndex);
+            updateHeaderUI();
+            updateAdviceBox();
+        }
+        window.removePlant = (slotIndex) => {
+            gameState.plants[slotIndex] = null;
+            renderPlantCard(slotIndex);
+            updateAdviceBox();
+        }
+        window.redeemReward = (rewardId) => {
+            if (gameState.shopPoints < 5000) {
+                showToast('Недостаточно 💎!', 'error'); return;
+            }
+            gameState.shopPoints -= 5000;
+            showModal('🎁 Ваша награда!',
+                `Ваш промокод: <strong>GB5_${Math.random().toString(36).substr(2, 6).toUpperCase()}</strong>`,
+                [{ label: 'Отлично!', type: 'primary', onclick: 'closeModal()' }]
+            );
+            updateHeaderUI();
+        }
+        window.resetGame = () => {
+            closeModal();
+            gameState = createInitialGameState();
+            saveGame();
+            updateHeaderUI();
+            renderGarden();
+            renderInventory();
+            renderShops();
+            renderRewards();
+            updateAdviceBox();
+            showToast('Игра начата заново!', 'info');
+        }
+        function openPlantModal(slotIndex) {
+            const availableSeeds = Object.entries(SEED_TYPES).filter(([key, seed]) => {
+                return seed.level <= gameState.level && (gameState.inventory[key] || 0) > 0;
+            });
+            if (availableSeeds.length === 0) {
+                showToast('У вас нет семян! Купите их в магазине.', 'error');
+                return;
+            }
+            const modalBody = '<div class="item-grid">' + availableSeeds.map(([key, seed]) => `
+                <div class="item-card" style="cursor: pointer;" onclick="plantSeed(${slotIndex}, '${key}')">
+                    <div class="item-icon"><img src="${seed.image}" alt="${seed.name}" style="width: 60px; height: 60px; border-radius: 8px;"></div>
+                    <div class="item-name">${seed.name}</div>
+                    <div class="item-description">В наличии: ${gameState.inventory[key] || 0}</div>
+                </div>
+            `).join('') + '</div>';
+            showModal('🌱 Выберите семена', modalBody, []);
+        }
+        function getStageText(stage) {
+            return {
+                seed: 'Семя', sprout: 'Росток', vegetative: 'Вегетация',
+                flowering: 'Цветение', harvest: 'Урожай'
+            }[stage];
+        }
+        function gameTick() {
+            let changed = false;
+            const bonuses = GameLogic.getEquipmentBonuses();
+            gameState.plants.forEach((plant, index) => {
+                if (!plant || plant.health <= 0) return;
+                const seedData = SEED_TYPES[plant.type];
+                plant.soil.water = Math.max(0, plant.soil.water - 0.1 * bonuses.water);
+                if (plant.soil.water <= 0) plant.health = Math.max(0, plant.health - 0.01);
+                if (plant.soil.water > 0) {
+                    let growthAmount = 0, N_cost = 0, P_cost = 0, K_cost = 0;
+                    const growthPerTick = (1 / (seedData.growthTime / 1000)) * 100 * (1 / bonuses.growth);
+                    if (plant.stage === 'vegetative' && plant.soil.N > 0) {
+                        growthAmount = growthPerTick; N_cost = 0.05; K_cost = 0.01;
+                    } else if (plant.stage === 'flowering' && plant.soil.P > 0 && plant.soil.K > 0) {
+                        growthAmount = growthPerTick; P_cost = 0.05; K_cost = 0.05;
+                    } else if (plant.stage !== 'harvest') {
+                        growthAmount = growthPerTick;
+                    }
+                    if (growthAmount > 0) {
+                        plant.growth = Math.min(100, plant.growth + growthAmount);
+                        plant.soil.N = Math.max(0, plant.soil.N - N_cost);
+                        plant.soil.P = Math.max(0, plant.soil.P - P_cost);
+                        plant.soil.K = Math.max(0, plant.soil.K - K_cost);
+                    } else if (plant.health > 0 && plant.stage !== 'harvest') {
+                        plant.health = Math.max(0, plant.health - 0.01);
+                    }
+                    let oldStage = plant.stage;
+                    if (plant.growth >= 100) plant.stage = 'harvest';
+                    else if (plant.growth >= 70) plant.stage = 'flowering';
+                    else if (plant.growth >= 30) plant.stage = 'vegetative';
+                    else if (plant.growth > 0.1) plant.stage = 'sprout';
+                    if (oldStage !== plant.stage) changed = true;
+                }
+                if (!plant.disease && Math.random() < 0.0001 * bonuses.disease) {
+                    plant.disease = DISEASES[Math.floor(Math.random() * DISEASES.length)];
+                    changed = true;
+                }
+                if (plant.disease) plant.health = Math.max(0, plant.health - 0.01);
+                if (plant.health <= 0) changed = true;
+                updatePlantCardUI(index, plant);
+            });
+            if (changed) updateAdviceBox();
+        }
+        function updateTime() {
+            const hour = new Date().getHours();
+            const isDay = hour >= 6 && hour < 20;
+            const stars = document.getElementById('stars');
+            if (gameState.settings.animations) {
+                stars.style.display = 'block';
+                stars.style.opacity = isDay ? 0 : 1;
+            } else {
+                stars.style.display = 'none';
+            }
+        }
+        function generateStars() {
+            const stars = document.getElementById('stars');
+            stars.innerHTML = '';
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                stars.appendChild(star);
+            }
+        }
+        function showConfetti() {
+            if (!gameState.settings.animations) return;
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.cssText = `position: fixed; top: -10px; left: ${Math.random()*100}%; width: 10px; height: 10px; background: var(--color-gold); opacity: 1; z-index: 9999;`;
+                confetti.style.animation = `confetti-fall ${Math.random()*2+3}s ${Math.random()*1}s linear forwards`;
+                document.body.appendChild(confetti);
+            }
+        }
+        const styleSheet = document.createElement("style");
+        styleSheet.type = "text/css";
+        styleSheet.innerText = `@keyframes confetti-fall { to { transform: translateY(100vh) rotate(720deg); opacity: 0; } }`;
+        document.head.appendChild(styleSheet);
+        function setupNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const views = document.querySelectorAll('.view');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const viewName = item.dataset.view;
+                    views.forEach(v => v.classList.add('hidden'));
+                    const targetView = document.getElementById(`${viewName}View`);
+                    if (targetView) targetView.classList.remove('hidden');
+                    navItems.forEach(n => n.classList.remove('active'));
+                    item.classList.add('active');
+                    if (viewName === 'shop' && document.getElementById('seedsShop').innerHTML === '') renderShops();
+                    if (viewName === 'inventory' && document.getElementById('inventoryGrid').innerHTML === '') renderInventory();
+                    if (viewName === 'rewards' && document.getElementById('rewardsList').innerHTML === '') renderRewards();
+                    if (viewName === 'settings' && !document.getElementById('toggleAnimations').onclick) renderSettings();
+                    playSound(800, 0.05, 0.1);
+                });
+            });
+        }
+        function setupDragAndDrop() {
+            let draggingItem = null;
+            document.addEventListener('dragstart', (e) => {
+                if (e.target.classList.contains('draggable')) {
+                    draggingItem = e.target;
+                    e.dataTransfer.setData('text/plain', e.target.dataset.itemId);
+                    setTimeout(() => e.target.classList.add('dragging'), 0);
+                    vibrate(50);
+                }
+            });
+            document.addEventListener('dragend', (e) => {
+                if (draggingItem) {
+                    draggingItem.classList.remove('dragging');
+                    draggingItem = null;
+                }
+            });
+            document.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                const dropTarget = e.target.closest('.droppable');
+                if (dropTarget) dropTarget.classList.add('droppable-hover');
+            });
+            document.addEventListener('dragleave', (e) => {
+                const dropTarget = e.target.closest('.droppable');
+                if (dropTarget) dropTarget.classList.remove('droppable-hover');
+            });
+            document.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const dropTarget = e.target.closest('.droppable');
+                if (dropTarget && draggingItem) {
+                    dropTarget.classList.remove('droppable-hover');
+                    const slotIndex = dropTarget.dataset.slotIndex;
+                    const itemId = draggingItem.dataset.itemId;
+                    GameLogic.applyItem(slotIndex, itemId);
+                }
+            });
+        }
+        // === ГЛАВНАЯ ФУНКЦИЯ ЗАПУСКА ===
+        async function bootApplication() {
+            gameState = loadGame();
+            // Оффлайн прогресс
+            if (gameState.lastSavedAt) {
+                GameLogic.calculateOfflineProgress(gameState.lastSavedAt);
+            }
+            gameState.lastLogin = Date.now();
+            // UI
+            setupNavigation();
+            setupDragAndDrop();
+            document.getElementById('modalClose').onclick = closeModal;
+            document.getElementById('userIdDisplay').textContent = 'local-id-' + Math.floor(Math.random() * 100000);
+            // Рендер
+            updateHeaderUI();
+            renderGarden();
+            updateAdviceBox();
+            updateTime();
+            generateStars();
+            // Циклы
+            setInterval(gameTick, 1000);
+            setInterval(() => { saveGame(); gameState.lastSavedAt = Date.now(); }, 30000);
+            setInterval(updateTime, 60000);
+            // Готово
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+        // === ЗАПУСК ===
+        document.addEventListener('DOMContentLoaded', () => {
+            bootApplication();
+        });
+    </script>
 </body>
 </html>
