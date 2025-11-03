@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>GrowBox Pro Premium 2025</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" />
+</head>
+<body>
+  <div class="ar-background"></div>
+  <div class="header" id="dynamic-tip">Добро пожаловать, гровер! 🌿</div>
 
+  <div class="content active" id="garden-view">
+    <div id="plants-container"></div>
+    <div id="empty-garden">Посадите первое растение!</div>
+  </div>
+
+  <div class="content" id="shop-view">
+    <h2>🌱 Магазин семян</h2>
+    <div id="seeds-shop"></div>
+  </div>
+
+  <div class="content" id="real-shop-view">
+    <h2>🛒 Реальный магазин</h2>
+    <p>Доставка бесплатно от 5000 ₽</p>
+    <button id="open-real-shop" class="btn-primary">Перейти в магазин</button>
+  </div>
+
+  <div class="content" id="inventory-view">
+    <h2>📦 Инвентарь</h2>
+    <div id="inventory-list"></div>
+  </div>
+
+  <div class="content" id="achievements-view">
+    <h2>🏆 Достижения</h2>
+    <div id="achievements-list"></div>
+  </div>
+
+  <div class="content" id="encyclopedia-view">
+    <h2>📚 Советы гровера</h2>
+    <p>Поливайте вовремя, следите за здоровьем растений!</p>
+  </div>
+
+  <div id="rain-container"></div>
+  <div id="confetti-container"></div>
+  <div class="toast" id="toast"></div>
+
+  <div class="bottom-nav">
+    <a href="#" class="nav-item active" data-view="garden">🌱 Сад</a>
+    <a href="#" class="nav-item" data-view="shop">🛒 Магазин</a>
+    <a href="#" class="nav-item" data-view="real-shop">🛍️ Оборудование</a>
+    <a href="#" class="nav-item" data-view="inventory">📦 Инвентарь</a>
+    <a href="#" class="nav-item" data-view="achievements">🏆 Достижения</a>
+    <a href="#" class="nav-item" data-view="encyclopedia">📚 Советы</a>
+  </div>
+
+  <script type="module" src="js/game.js"></script>
+  <script type="module" src="js/ui.js"></script>
+  <script type="module" src="js/plant.js"></script>
+  <script type="module" src="js/shop.js"></script>
+  <script type="module" src="js/save.js"></script>
+  <script type="module" src="js/telegram.js"></script>
+</body>
+</html>
